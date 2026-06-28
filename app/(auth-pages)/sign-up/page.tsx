@@ -19,7 +19,7 @@ export default async function SignUp(props: {
         </p>
       </div>
       <div className="grid gap-6">
-        <form className="grid gap-4">
+        <form action={signUpAction} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">邮箱</Label>
             <Input
@@ -47,7 +47,6 @@ export default async function SignUp(props: {
           <SubmitButton
             className="w-full"
             pendingText="注册中..."
-            formAction={signUpAction}
           >
             注册
           </SubmitButton>

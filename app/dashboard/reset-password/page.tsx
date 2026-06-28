@@ -18,7 +18,7 @@ export default async function ResetPassword(props: {
           请输入你的新密码。
         </p>
       </div>
-      <form className="grid gap-4">
+      <form action={resetPasswordAction} className="grid gap-4">
         <div className="grid gap-2">
           <Label htmlFor="password">新密码</Label>
           <Input
@@ -37,7 +37,7 @@ export default async function ResetPassword(props: {
             required
           />
         </div>
-        <SubmitButton formAction={resetPasswordAction}>
+        <SubmitButton>
           更新密码
         </SubmitButton>
         <FormMessage message={searchParams} />

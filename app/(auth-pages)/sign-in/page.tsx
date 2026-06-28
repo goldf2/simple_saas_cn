@@ -17,7 +17,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
         </p>
       </div>
       <div className="grid gap-6">
-        <form className="grid gap-4">
+        <form action={signInAction} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">邮箱</Label>
             <Input
@@ -53,7 +53,6 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           <SubmitButton
             className="w-full"
             pendingText="登录中..."
-            formAction={signInAction}
           >
             登录
           </SubmitButton>

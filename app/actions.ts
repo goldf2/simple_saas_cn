@@ -5,11 +5,14 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+const getBaseUrl = async () =>
+  process.env.BASE_URL ?? (await headers()).get("origin") ?? "http://localhost:3000";
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  const baseUrl = await getBaseUrl();
 
   if (!email || !password) {
     return encodedRedirect(
@@ -23,7 +26,7 @@ export const signUpAction = async (formData: FormData) => {
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+      emailRedirectTo: `${baseUrl}/auth/callback`,
     },
   });
 
@@ -55,7 +58,7 @@ export const signInAction = async (formData: FormData) => {
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+  const baseUrl = await getBaseUrl();
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
@@ -63,7 +66,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/callback?redirect_to=/dashboard/reset-password`,
+    redirectTo: `${baseUrl}/auth/callback?redirect_to=/dashboard/reset-password`,
   });
 
   if (error) {
@@ -128,4 +131,3 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
-

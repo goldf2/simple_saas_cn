@@ -20,7 +20,7 @@ export default async function ForgotPassword(props: {
         </p>
       </div>
       <div className="grid gap-6">
-        <form action={forgotPasswordAction} className="grid gap-4">
+        <form className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">邮箱</Label>
             <Input
@@ -36,6 +36,7 @@ export default async function ForgotPassword(props: {
           </div>
           <SubmitButton
             className="w-full"
+            formAction={forgotPasswordAction}
             pendingText="发送中..."
           >
             发送重置链接
